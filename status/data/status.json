@@ -1,63 +1,359 @@
 {
-  "generatedAt": "2026-04-29T02:09:20.163Z",
+  "generatedAt": "2026-04-29T02:20:33.048Z",
   "overallStatus": "up",
+  "summary": {
+    "totalChecks": 18,
+    "up": 18,
+    "degraded": 0,
+    "down": 0,
+    "avgLatencyMs": 260,
+    "p95LatencyMs": 392
+  },
+  "groups": [
+    {
+      "group": "Web",
+      "total": 3,
+      "up": 3,
+      "degraded": 0,
+      "down": 0
+    },
+    {
+      "group": "Core API",
+      "total": 6,
+      "up": 6,
+      "degraded": 0,
+      "down": 0
+    },
+    {
+      "group": "Analytics",
+      "total": 4,
+      "up": 4,
+      "degraded": 0,
+      "down": 0
+    },
+    {
+      "group": "AI Platform",
+      "total": 5,
+      "up": 5,
+      "degraded": 0,
+      "down": 0
+    }
+  ],
   "checks": [
     {
       "id": "frontend-home",
+      "group": "Web",
       "name": "Main Website",
-      "url": "https://www.frametheglobe.xyz/",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/",
+      "expectedStatuses": [
+        200
+      ],
       "status": "up",
-      "responseTimeMs": 842,
+      "responseTimeMs": 636,
+      "httpStatus": 200,
+      "note": "Operational"
+    },
+    {
+      "id": "frontend-war-premium",
+      "group": "Web",
+      "name": "War Premium Page",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/war-premium",
+      "expectedStatuses": [
+        200
+      ],
+      "status": "up",
+      "responseTimeMs": 392,
+      "httpStatus": 200,
+      "note": "Operational"
+    },
+    {
+      "id": "frontend-accountability",
+      "group": "Web",
+      "name": "Accountability Page",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/accountability",
+      "expectedStatuses": [
+        200
+      ],
+      "status": "up",
+      "responseTimeMs": 241,
       "httpStatus": 200,
       "note": "Operational"
     },
     {
       "id": "backend-health",
+      "group": "Core API",
       "name": "Backend Health",
-      "url": "https://framtheglobe-xyz-original-production.up.railway.app/health",
+      "method": "GET",
+      "endpoint": "https://framtheglobe-xyz-original-production.up.railway.app/health",
+      "expectedStatuses": [
+        200
+      ],
       "status": "up",
-      "responseTimeMs": 234,
+      "responseTimeMs": 282,
       "httpStatus": 200,
       "note": "Operational"
     },
     {
       "id": "api-news",
+      "group": "Core API",
       "name": "News API",
-      "url": "https://www.frametheglobe.xyz/api/news?limit=1",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/api/news?limit=1",
+      "expectedStatuses": [
+        200
+      ],
       "status": "up",
-      "responseTimeMs": 1009,
+      "responseTimeMs": 126,
       "httpStatus": 200,
       "note": "Operational"
     },
     {
       "id": "api-market",
+      "group": "Core API",
       "name": "Market API",
-      "url": "https://www.frametheglobe.xyz/api/market",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/api/market",
+      "expectedStatuses": [
+        200
+      ],
       "status": "up",
-      "responseTimeMs": 224,
+      "responseTimeMs": 276,
       "httpStatus": 200,
       "note": "Operational"
     },
     {
       "id": "api-rss",
+      "group": "Core API",
       "name": "RSS API",
-      "url": "https://www.frametheglobe.xyz/api/rss",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/api/rss",
+      "expectedStatuses": [
+        200
+      ],
       "status": "up",
-      "responseTimeMs": 166,
+      "responseTimeMs": 161,
+      "httpStatus": 200,
+      "note": "Operational"
+    },
+    {
+      "id": "api-live-metrics",
+      "group": "Core API",
+      "name": "Live Metrics API",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/api/live-metrics",
+      "expectedStatuses": [
+        200
+      ],
+      "status": "up",
+      "responseTimeMs": 206,
+      "httpStatus": 200,
+      "note": "Operational"
+    },
+    {
+      "id": "api-live-feeds",
+      "group": "Core API",
+      "name": "Live Feeds API",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/api/live-feeds",
+      "expectedStatuses": [
+        200
+      ],
+      "status": "up",
+      "responseTimeMs": 230,
+      "httpStatus": 200,
+      "note": "Operational"
+    },
+    {
+      "id": "api-market-impact",
+      "group": "Analytics",
+      "name": "Market Impact API",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/api/market-impact",
+      "expectedStatuses": [
+        200
+      ],
+      "status": "up",
+      "responseTimeMs": 195,
+      "httpStatus": 200,
+      "note": "Operational"
+    },
+    {
+      "id": "api-theater-metrics",
+      "group": "Analytics",
+      "name": "Theater Metrics API",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/api/theater-metrics",
+      "expectedStatuses": [
+        200
+      ],
+      "status": "up",
+      "responseTimeMs": 266,
+      "httpStatus": 200,
+      "note": "Operational"
+    },
+    {
+      "id": "api-polymarket-history",
+      "group": "Analytics",
+      "name": "Polymarket History API",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/api/polymarket-history",
+      "expectedStatuses": [
+        200,
+        400
+      ],
+      "status": "up",
+      "responseTimeMs": 226,
+      "httpStatus": 400,
+      "note": "Operational"
+    },
+    {
+      "id": "api-flight-paths",
+      "group": "Analytics",
+      "name": "Flight Paths API",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/api/flight-paths",
+      "expectedStatuses": [
+        200
+      ],
+      "status": "up",
+      "responseTimeMs": 214,
       "httpStatus": 200,
       "note": "Operational"
     },
     {
       "id": "ai-router-status",
+      "group": "AI Platform",
       "name": "AI Router Status",
-      "url": "https://framtheglobe-xyz-original-production.up.railway.app/api/ai-router-status",
+      "method": "GET",
+      "endpoint": "https://framtheglobe-xyz-original-production.up.railway.app/api/ai-router-status",
+      "expectedStatuses": [
+        200
+      ],
       "status": "up",
-      "responseTimeMs": 110,
+      "responseTimeMs": 109,
+      "httpStatus": 200,
+      "note": "Operational"
+    },
+    {
+      "id": "ai-intel-route",
+      "group": "AI Platform",
+      "name": "AI Intel Route",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/api/ai-intel",
+      "expectedStatuses": [
+        405
+      ],
+      "status": "up",
+      "responseTimeMs": 168,
+      "httpStatus": 405,
+      "note": "Operational"
+    },
+    {
+      "id": "ai-flash-brief-route",
+      "group": "AI Platform",
+      "name": "Flash Brief Route",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/api/flash-brief",
+      "expectedStatuses": [
+        405
+      ],
+      "status": "up",
+      "responseTimeMs": 257,
+      "httpStatus": 405,
+      "note": "Operational"
+    },
+    {
+      "id": "ai-analyst-route",
+      "group": "AI Platform",
+      "name": "Analyst Briefing Route",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/api/analyst-briefing",
+      "expectedStatuses": [
+        200,
+        404,
+        405
+      ],
+      "status": "up",
+      "responseTimeMs": 308,
+      "httpStatus": 200,
+      "note": "Operational"
+    },
+    {
+      "id": "ai-analyze-ticker-route",
+      "group": "AI Platform",
+      "name": "Analyze Ticker Route",
+      "method": "GET",
+      "endpoint": "https://www.frametheglobe.xyz/api/analyze-ticker",
+      "expectedStatuses": [
+        200,
+        404,
+        405
+      ],
+      "status": "up",
+      "responseTimeMs": 381,
       "httpStatus": 200,
       "note": "Operational"
     }
   ],
   "history": [
+    {
+      "ts": "2026-04-29T02:20:33.048Z",
+      "overallStatus": "up",
+      "summary": "All monitored systems operational",
+      "checkStatuses": {
+        "frontend-home": "up",
+        "frontend-war-premium": "up",
+        "frontend-accountability": "up",
+        "backend-health": "up",
+        "api-news": "up",
+        "api-market": "up",
+        "api-rss": "up",
+        "api-live-metrics": "up",
+        "api-live-feeds": "up",
+        "api-market-impact": "up",
+        "api-theater-metrics": "up",
+        "api-polymarket-history": "up",
+        "api-flight-paths": "up",
+        "ai-router-status": "up",
+        "ai-intel-route": "up",
+        "ai-flash-brief-route": "up",
+        "ai-analyst-route": "up",
+        "ai-analyze-ticker-route": "up"
+      },
+      "checkLatencyMs": {
+        "frontend-home": 636,
+        "frontend-war-premium": 392,
+        "frontend-accountability": 241,
+        "backend-health": 282,
+        "api-news": 126,
+        "api-market": 276,
+        "api-rss": 161,
+        "api-live-metrics": 206,
+        "api-live-feeds": 230,
+        "api-market-impact": 195,
+        "api-theater-metrics": 266,
+        "api-polymarket-history": 226,
+        "api-flight-paths": 214,
+        "ai-router-status": 109,
+        "ai-intel-route": 168,
+        "ai-flash-brief-route": 257,
+        "ai-analyst-route": 308,
+        "ai-analyze-ticker-route": 381
+      }
+    },
+    {
+      "ts": "2026-04-29T02:15:15.873Z",
+      "overallStatus": "up",
+      "summary": "All monitored systems operational"
+    },
+    {
+      "ts": "2026-04-29T02:14:49.897Z",
+      "overallStatus": "up",
+      "summary": "All monitored systems operational"
+    },
     {
       "ts": "2026-04-29T02:09:20.163Z",
       "overallStatus": "up",

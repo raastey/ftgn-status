@@ -8,6 +8,12 @@
       name="description"
       content="Live operational status for FrameTheGlobe services, APIs, and background systems."
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./assets/status.css" />
   </head>
   <body>
@@ -15,9 +21,9 @@
     <main class="shell">
       <header class="hero">
         <p class="kicker">SYSTEM STATUS</p>
-        <h1>FrameTheGlobe Operational Monitor</h1>
+        <h1>FrameTheGlobe Command Status</h1>
         <p class="subtitle">
-          Independent status page for availability, degraded modes, and recent incidents.
+          Full-spectrum public tracker for web, APIs, data pipelines, and AI platform availability.
         </p>
         <div class="hero-meta">
           <span id="overallBadge" class="badge badge-muted">Checking...</span>
@@ -26,12 +32,20 @@
       </header>
 
       <section class="panel">
-        <h2>Service Health</h2>
-        <div id="checksGrid" class="checks-grid"></div>
+        <h2>Operational Summary</h2>
+        <div id="summaryCards" class="summary-cards"></div>
+        <h3 class="subhead">Fleet Health Bars</h3>
+        <div id="fleetBars" class="fleet-bars"></div>
       </section>
 
       <section class="panel">
-        <h2>Recent Events</h2>
+        <h2>Tracked Components</h2>
+        <div id="checksTable" class="checks-table"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Incident Timeline</h2>
+        <div id="uptimeBars" class="uptime-bars"></div>
         <ul id="eventsList" class="events-list"></ul>
       </section>
 

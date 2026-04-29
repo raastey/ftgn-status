@@ -102,17 +102,83 @@ h1 {
   font-size: 1.1rem;
 }
 
-.checks-grid {
+.subhead {
+  margin: 1rem 0 0.55rem;
+  color: var(--text-secondary);
+  font-size: 0.86rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.summary-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 0.8rem;
 }
 
-.check-card {
+.summary-card {
   background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 0.85rem;
+  padding: 0.8rem;
+}
+
+.summary-label {
+  margin: 0;
+  font-size: 0.72rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
+.summary-value {
+  margin: 0.3rem 0 0;
+  font-size: 1.3rem;
+}
+
+.fleet-bars {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.fleet-row {
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  gap: 0.7rem;
+  align-items: center;
+}
+
+.fleet-name {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.bar-track {
+  height: 10px;
+  width: 100%;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.16);
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  display: flex;
+}
+
+.bar-ok { background: linear-gradient(90deg, #16a34a, #22c55e); }
+.bar-degraded { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.bar-down { background: linear-gradient(90deg, #ef4444, #f87171); }
+
+.fleet-meta {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+.checks-table {
+  display: grid;
+  gap: 0.8rem;
 }
 
 .check-head {
@@ -125,6 +191,22 @@ h1 {
 .check-name {
   margin: 0;
   font-size: 0.96rem;
+}
+
+.check-group {
+  margin: 0 0 0.5rem;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.check-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.85rem;
 }
 
 .dot {
@@ -143,6 +225,88 @@ h1 {
   font-size: 0.84rem;
   font-family: "IBM Plex Mono", ui-monospace, monospace;
 }
+
+.check-bars {
+  margin-top: 0.65rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.latency-row {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+.latency-label,
+.latency-value {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  margin: 0;
+}
+
+.latency-fill {
+  height: 8px;
+  border-radius: 999px;
+}
+
+.latency-good { background: linear-gradient(90deg, #15803d, #22c55e); }
+.latency-warn { background: linear-gradient(90deg, #d97706, #f59e0b); }
+.latency-bad { background: linear-gradient(90deg, #dc2626, #ef4444); }
+
+.uptime-bars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+.uptime-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-2);
+  padding: 0.75rem;
+}
+
+.uptime-head {
+  margin: 0 0 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.55rem;
+}
+
+.uptime-name {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.uptime-value {
+  margin: 0;
+  font-size: 0.78rem;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  color: var(--text-muted);
+}
+
+.sparkline {
+  height: 18px;
+  display: grid;
+  grid-template-columns: repeat(24, minmax(4px, 1fr));
+  gap: 2px;
+}
+
+.spark {
+  border-radius: 2px;
+  background: rgba(148, 163, 184, 0.18);
+}
+
+.spark-up { background: rgba(34, 197, 94, 0.75); }
+.spark-degraded { background: rgba(245, 158, 11, 0.78); }
+.spark-down { background: rgba(239, 68, 68, 0.78); }
+.spark-unknown { background: rgba(148, 163, 184, 0.25); }
 
 .events-list {
   list-style: none;
@@ -184,4 +348,11 @@ h1 {
 .foot a {
   color: var(--accent);
   text-decoration: none;
+}
+
+@media (max-width: 760px) {
+  .fleet-row {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
 }
