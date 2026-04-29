@@ -3,57 +3,79 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FrameTheGlobe Status</title>
-    <meta
-      name="description"
-      content="Live operational status for FrameTheGlobe services, APIs, and background systems."
-    />
+    <meta name="color-scheme" content="light" />
+    <title>FrameTheGlobe — Status</title>
+    <meta name="description" content="Live operational status for FrameTheGlobe services, APIs, and background systems." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./assets/status.css" />
   </head>
   <body>
-    <div class="wash" aria-hidden="true"></div>
-    <main class="shell">
+    <div id="statusStripe" class="status-stripe"></div>
+
+    <div class="shell">
+
       <header class="hero">
-        <p class="kicker">FRAME THE GLOBE STATUS CENTER</p>
-        <h1>Global Service Reliability Dashboard</h1>
-        <p class="subtitle">
-          Air-traffic-style command surface for every critical FrameTheGlobe dependency: web, APIs, analytics engines, and AI routing.
-        </p>
-        <div class="hero-meta">
-          <span id="overallBadge" class="badge badge-muted">Checking...</span>
-          <span id="lastUpdated" class="meta">Last updated: --</span>
+        <nav class="hero-nav">
+          <span class="brand">FrameTheGlobe</span>
+          <span class="live-chip"><i class="live-dot"></i>Live</span>
+        </nav>
+        <p class="hero-kicker" id="overallKicker">System Status</p>
+        <h1 class="hero-headline" id="overallLabel">Checking status…</h1>
+        <div class="hero-foot">
+          <span id="overallBadge" class="status-tag status-tag--muted">—</span>
+          <span class="hero-time" id="lastUpdated">—</span>
         </div>
       </header>
 
-      <section class="panel">
-        <h2>Executive Snapshot</h2>
-        <div id="summaryCards" class="summary-cards"></div>
-        <h3 class="subhead">Fleet Health Allocation</h3>
-        <div id="fleetBars" class="fleet-bars"></div>
+      <div class="rule" role="separator"></div>
+
+      <section class="metrics-strip" aria-label="Key metrics">
+        <div class="metric">
+          <strong class="metric-n" id="kpiUp">—</strong>
+          <span class="metric-l">Services Online</span>
+        </div>
+        <div class="metric-sep" aria-hidden="true"></div>
+        <div class="metric">
+          <strong class="metric-n" id="kpiLatency">—</strong>
+          <span class="metric-l">Avg Response</span>
+        </div>
+        <div class="metric-sep" aria-hidden="true"></div>
+        <div class="metric">
+          <strong class="metric-n" id="kpiUptime">—</strong>
+          <span class="metric-l">Historical Uptime</span>
+        </div>
+        <div class="metric-sep" aria-hidden="true"></div>
+        <div class="metric">
+          <strong class="metric-n" id="kpiIncidents">—</strong>
+          <span class="metric-l">Active Incidents</span>
+        </div>
       </section>
 
-      <section class="panel">
-        <h2>Component Matrix</h2>
-        <div id="checksTable" class="checks-table"></div>
+      <div class="rule" role="separator"></div>
+
+      <section class="section">
+        <div class="section-head">
+          <h2 class="section-title">Service Health</h2>
+          <span class="section-sub">Response time &amp; status</span>
+        </div>
+        <div id="checksGrid" class="checks-grid"></div>
       </section>
 
-      <section class="panel">
-        <h2>Reliability Timeline</h2>
-        <div id="uptimeBars" class="uptime-bars"></div>
-        <ul id="eventsList" class="events-list"></ul>
+      <section class="section">
+        <div class="section-head">
+          <h2 class="section-title">Incident Log</h2>
+          <span class="section-sub">Last 12 snapshots</span>
+        </div>
+        <ul id="eventsList" class="events-list" role="list"></ul>
       </section>
 
       <footer class="foot">
-        <span>FrameTheGlobe Status</span>
-        <a href="https://www.frametheglobe.xyz" target="_blank" rel="noreferrer">Back to frametheglobe.xyz</a>
+        <span class="foot-text">FrameTheGlobe Status</span>
+        <a class="foot-link" href="https://www.frametheglobe.xyz" target="_blank" rel="noreferrer">← frametheglobe.xyz</a>
       </footer>
-    </main>
+    </div>
 
     <script src="./assets/status.js" defer></script>
   </body>
