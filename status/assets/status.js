@@ -64,6 +64,25 @@ function uptime24h(history, checkId) {
   return Math.round((good / rows.length) * 1000) / 10;
 }
 
+function avgUptime24h(history, checks) {
+  if (!checks.length) return 100;
+  const total = checks.reduce((sum, c) => sum + uptime24h(history, c.id), 0);
+  return Math.round((total / checks.length) * 10) / 10;
+}
+
+function countIncidents24h(history) {
+  const windowStart = Date.now() - 24 * 60 * 60 * 1000;
+  return history.filter((h) => Date.parse(h.ts) >= windowStart && h.overallStatus !== 'up').length;
+}
+
+function statusScore(summary) {
+  const total = summary.totalChecks || 0;
+  if (!total) return 100;
+  const up = summary.up || 0;
+  const degraded = summary.degraded || 0;
+  return Math.round(((up + degraded * 0.55) / total) * 1000) / 10;
+}
+
 function render(data) {
   const overallBadge = document.getElementById('overallBadge');
   const lastUpdated = document.getElementById('lastUpdated');
@@ -81,6 +100,11 @@ function render(data) {
   lastUpdated.textContent = `Last updated: ${formatTs(data.generatedAt)}`;
 
   const summary = data.summary || {};
+  const bestLatency = checks.reduce((m, c) => Math.min(m, Number(c.responseTimeMs || 999999)), 999999);
+  const worstLatency = checks.reduce((m, c) => Math.max(m, Number(c.responseTimeMs || 0)), 0);
+  const incidents24h = countIncidents24h(history);
+  const fleetUptime = avgUptime24h(history, checks);
+  const score = statusScore(summary);
   summaryCards.innerHTML = `
     <article class="summary-card"><p class="summary-label">TOTAL CHECKS</p><p class="summary-value">${summary.totalChecks ?? checks.length}</p></article>
     <article class="summary-card"><p class="summary-label">UP</p><p class="summary-value">${summary.up ?? checks.filter((c) => c.status === 'up').length}</p></article>
@@ -88,6 +112,11 @@ function render(data) {
     <article class="summary-card"><p class="summary-label">DOWN</p><p class="summary-value">${summary.down ?? checks.filter((c) => c.status === 'down').length}</p></article>
     <article class="summary-card"><p class="summary-label">AVG LATENCY</p><p class="summary-value">${summary.avgLatencyMs ?? '-'}ms</p></article>
     <article class="summary-card"><p class="summary-label">P95 LATENCY</p><p class="summary-value">${summary.p95LatencyMs ?? '-'}ms</p></article>
+    <article class="summary-card"><p class="summary-label">BEST LATENCY</p><p class="summary-value">${bestLatency === 999999 ? '-' : bestLatency + 'ms'}</p></article>
+    <article class="summary-card"><p class="summary-label">SLOWEST CHECK</p><p class="summary-value">${worstLatency || '-'}ms</p></article>
+    <article class="summary-card"><p class="summary-label">24H FLEET UPTIME</p><p class="summary-value">${fleetUptime}%</p></article>
+    <article class="summary-card"><p class="summary-label">INCIDENTS / 24H</p><p class="summary-value">${incidents24h}</p></article>
+    <article class="summary-card"><p class="summary-label">STATUS SCORE</p><p class="summary-value">${score}</p></article>
   `;
 
   fleetBars.innerHTML = '';
@@ -184,11 +213,12 @@ function render(data) {
   }
 
   for (const item of events) {
+    const sev = statusClass(item.overallStatus || 'down');
     const li = document.createElement('li');
     li.className = 'event';
     li.innerHTML = `
       <p class="event-title">${item.summary}</p>
-      <p class="event-meta">${formatTs(item.ts)} · ${item.overallStatus.toUpperCase()}</p>
+      <p class="event-meta"><span class="badge badge-${sev}">${(item.overallStatus || 'down').toUpperCase()}</span> ${formatTs(item.ts)}</p>
     `;
     eventsList.appendChild(li);
   }

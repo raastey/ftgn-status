@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-04-29T02:20:33.048Z",
+  "generatedAt": "2026-04-29T02:24:37.726Z",
   "overallStatus": "up",
   "summary": {
     "totalChecks": 18,
     "up": 18,
     "degraded": 0,
     "down": 0,
-    "avgLatencyMs": 260,
-    "p95LatencyMs": 392
+    "avgLatencyMs": 270,
+    "p95LatencyMs": 437
   },
   "groups": [
     {
@@ -50,7 +50,7 @@
         200
       ],
       "status": "up",
-      "responseTimeMs": 636,
+      "responseTimeMs": 651,
       "httpStatus": 200,
       "note": "Operational"
     },
@@ -64,7 +64,7 @@
         200
       ],
       "status": "up",
-      "responseTimeMs": 392,
+      "responseTimeMs": 327,
       "httpStatus": 200,
       "note": "Operational"
     },
@@ -78,7 +78,7 @@
         200
       ],
       "status": "up",
-      "responseTimeMs": 241,
+      "responseTimeMs": 312,
       "httpStatus": 200,
       "note": "Operational"
     },
@@ -92,7 +92,7 @@
         200
       ],
       "status": "up",
-      "responseTimeMs": 282,
+      "responseTimeMs": 264,
       "httpStatus": 200,
       "note": "Operational"
     },
@@ -106,7 +106,7 @@
         200
       ],
       "status": "up",
-      "responseTimeMs": 126,
+      "responseTimeMs": 285,
       "httpStatus": 200,
       "note": "Operational"
     },
@@ -120,7 +120,7 @@
         200
       ],
       "status": "up",
-      "responseTimeMs": 276,
+      "responseTimeMs": 283,
       "httpStatus": 200,
       "note": "Operational"
     },
@@ -134,7 +134,7 @@
         200
       ],
       "status": "up",
-      "responseTimeMs": 161,
+      "responseTimeMs": 217,
       "httpStatus": 200,
       "note": "Operational"
     },
@@ -148,7 +148,7 @@
         200
       ],
       "status": "up",
-      "responseTimeMs": 206,
+      "responseTimeMs": 111,
       "httpStatus": 200,
       "note": "Operational"
     },
@@ -162,7 +162,7 @@
         200
       ],
       "status": "up",
-      "responseTimeMs": 230,
+      "responseTimeMs": 316,
       "httpStatus": 200,
       "note": "Operational"
     },
@@ -190,7 +190,7 @@
         200
       ],
       "status": "up",
-      "responseTimeMs": 266,
+      "responseTimeMs": 437,
       "httpStatus": 200,
       "note": "Operational"
     },
@@ -205,7 +205,7 @@
         400
       ],
       "status": "up",
-      "responseTimeMs": 226,
+      "responseTimeMs": 117,
       "httpStatus": 400,
       "note": "Operational"
     },
@@ -219,7 +219,7 @@
         200
       ],
       "status": "up",
-      "responseTimeMs": 214,
+      "responseTimeMs": 162,
       "httpStatus": 200,
       "note": "Operational"
     },
@@ -233,7 +233,7 @@
         200
       ],
       "status": "up",
-      "responseTimeMs": 109,
+      "responseTimeMs": 198,
       "httpStatus": 200,
       "note": "Operational"
     },
@@ -247,7 +247,7 @@
         405
       ],
       "status": "up",
-      "responseTimeMs": 168,
+      "responseTimeMs": 119,
       "httpStatus": 405,
       "note": "Operational"
     },
@@ -261,7 +261,7 @@
         405
       ],
       "status": "up",
-      "responseTimeMs": 257,
+      "responseTimeMs": 162,
       "httpStatus": 405,
       "note": "Operational"
     },
@@ -277,7 +277,7 @@
         405
       ],
       "status": "up",
-      "responseTimeMs": 308,
+      "responseTimeMs": 389,
       "httpStatus": 200,
       "note": "Operational"
     },
@@ -293,14 +293,14 @@
         405
       ],
       "status": "up",
-      "responseTimeMs": 381,
+      "responseTimeMs": 320,
       "httpStatus": 200,
       "note": "Operational"
     }
   ],
   "history": [
     {
-      "ts": "2026-04-29T02:20:33.048Z",
+      "ts": "2026-04-29T02:24:37.726Z",
       "overallStatus": "up",
       "summary": "All monitored systems operational",
       "checkStatuses": {
@@ -324,24 +324,69 @@
         "ai-analyze-ticker-route": "up"
       },
       "checkLatencyMs": {
-        "frontend-home": 636,
-        "frontend-war-premium": 392,
-        "frontend-accountability": 241,
-        "backend-health": 282,
-        "api-news": 126,
-        "api-market": 276,
-        "api-rss": 161,
-        "api-live-metrics": 206,
-        "api-live-feeds": 230,
+        "frontend-home": 651,
+        "frontend-war-premium": 327,
+        "frontend-accountability": 312,
+        "backend-health": 264,
+        "api-news": 285,
+        "api-market": 283,
+        "api-rss": 217,
+        "api-live-metrics": 111,
+        "api-live-feeds": 316,
         "api-market-impact": 195,
-        "api-theater-metrics": 266,
-        "api-polymarket-history": 226,
+        "api-theater-metrics": 437,
+        "api-polymarket-history": 117,
+        "api-flight-paths": 162,
+        "ai-router-status": 198,
+        "ai-intel-route": 119,
+        "ai-flash-brief-route": 162,
+        "ai-analyst-route": 389,
+        "ai-analyze-ticker-route": 320
+      }
+    },
+    {
+      "ts": "2026-04-29T02:21:06.497Z",
+      "overallStatus": "up",
+      "summary": "All monitored systems operational",
+      "checkStatuses": {
+        "frontend-home": "up",
+        "frontend-war-premium": "up",
+        "frontend-accountability": "up",
+        "backend-health": "up",
+        "api-news": "up",
+        "api-market": "up",
+        "api-rss": "up",
+        "api-live-metrics": "up",
+        "api-live-feeds": "up",
+        "api-market-impact": "up",
+        "api-theater-metrics": "up",
+        "api-polymarket-history": "up",
+        "api-flight-paths": "up",
+        "ai-router-status": "up",
+        "ai-intel-route": "up",
+        "ai-flash-brief-route": "up",
+        "ai-analyst-route": "up",
+        "ai-analyze-ticker-route": "up"
+      },
+      "checkLatencyMs": {
+        "frontend-home": 896,
+        "frontend-war-premium": 397,
+        "frontend-accountability": 433,
+        "backend-health": 327,
+        "api-news": 168,
+        "api-market": 146,
+        "api-rss": 314,
+        "api-live-metrics": 146,
+        "api-live-feeds": 274,
+        "api-market-impact": 301,
+        "api-theater-metrics": 244,
+        "api-polymarket-history": 142,
         "api-flight-paths": 214,
-        "ai-router-status": 109,
-        "ai-intel-route": 168,
-        "ai-flash-brief-route": 257,
-        "ai-analyst-route": 308,
-        "ai-analyze-ticker-route": 381
+        "ai-router-status": 151,
+        "ai-intel-route": 144,
+        "ai-flash-brief-route": 129,
+        "ai-analyst-route": 291,
+        "ai-analyze-ticker-route": 366
       }
     },
     {
