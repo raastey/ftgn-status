@@ -1,0 +1,72 @@
+{
+  "generatedAt": "2026-04-29T02:09:20.163Z",
+  "overallStatus": "up",
+  "checks": [
+    {
+      "id": "frontend-home",
+      "name": "Main Website",
+      "url": "https://www.frametheglobe.xyz/",
+      "status": "up",
+      "responseTimeMs": 842,
+      "httpStatus": 200,
+      "note": "Operational"
+    },
+    {
+      "id": "backend-health",
+      "name": "Backend Health",
+      "url": "https://framtheglobe-xyz-original-production.up.railway.app/health",
+      "status": "up",
+      "responseTimeMs": 234,
+      "httpStatus": 200,
+      "note": "Operational"
+    },
+    {
+      "id": "api-news",
+      "name": "News API",
+      "url": "https://www.frametheglobe.xyz/api/news?limit=1",
+      "status": "up",
+      "responseTimeMs": 1009,
+      "httpStatus": 200,
+      "note": "Operational"
+    },
+    {
+      "id": "api-market",
+      "name": "Market API",
+      "url": "https://www.frametheglobe.xyz/api/market",
+      "status": "up",
+      "responseTimeMs": 224,
+      "httpStatus": 200,
+      "note": "Operational"
+    },
+    {
+      "id": "api-rss",
+      "name": "RSS API",
+      "url": "https://www.frametheglobe.xyz/api/rss",
+      "status": "up",
+      "responseTimeMs": 166,
+      "httpStatus": 200,
+      "note": "Operational"
+    },
+    {
+      "id": "ai-router-status",
+      "name": "AI Router Status",
+      "url": "https://framtheglobe-xyz-original-production.up.railway.app/api/ai-router-status",
+      "status": "up",
+      "responseTimeMs": 110,
+      "httpStatus": 200,
+      "note": "Operational"
+    }
+  ],
+  "history": [
+    {
+      "ts": "2026-04-29T02:09:20.163Z",
+      "overallStatus": "up",
+      "summary": "All monitored systems operational"
+    },
+    {
+      "ts": "2026-04-29T02:09:03.332Z",
+      "overallStatus": "down",
+      "summary": "News API: DOWN | Flash Brief API: DOWN"
+    }
+  ]
+}

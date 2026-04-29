@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FrameTheGlobe Status</title>
+    <meta
+      name="description"
+      content="Live operational status for FrameTheGlobe services, APIs, and background systems."
+    />
+    <link rel="stylesheet" href="./assets/status.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <main class="shell">
+      <header class="hero">
+        <p class="kicker">SYSTEM STATUS</p>
+        <h1>FrameTheGlobe Operational Monitor</h1>
+        <p class="subtitle">
+          Independent status page for availability, degraded modes, and recent incidents.
+        </p>
+        <div class="hero-meta">
+          <span id="overallBadge" class="badge badge-muted">Checking...</span>
+          <span id="lastUpdated" class="meta">Last updated: --</span>
+        </div>
+      </header>
+
+      <section class="panel">
+        <h2>Service Health</h2>
+        <div id="checksGrid" class="checks-grid"></div>
+      </section>
+
+      <section class="panel">
+        <h2>Recent Events</h2>
+        <ul id="eventsList" class="events-list"></ul>
+      </section>
+
+      <footer class="foot">
+        <span>FrameTheGlobe Status</span>
+        <a href="https://www.frametheglobe.xyz" target="_blank" rel="noreferrer">Back to frametheglobe.xyz</a>
+      </footer>
+    </main>
+
+    <script src="./assets/status.js" defer></script>
+  </body>
+</html>
