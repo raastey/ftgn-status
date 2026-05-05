@@ -9,9 +9,9 @@ function cls(s) {
 }
 
 function headline(s) {
-  if (s === 'up')       return 'Real-time monitoring for <span>operational systems.</span>';
-  if (s === 'degraded') return 'Partial disruption for <span>active services.</span>';
-  return 'Critical outage in <span>infrastructure.</span>';
+  if (s === 'up')       return 'All Systems Operational';
+  if (s === 'degraded') return 'Degraded Performance';
+  return 'Service Disruption';
 }
 
 function relativeTime(ts) {
@@ -42,17 +42,13 @@ function render(data) {
   const checks  = data.checks  || [];
   const history = data.history || [];
 
-  // Top stripe
-  const stripe = document.getElementById('statusStripe');
-  if (stripe) stripe.className = `status-stripe stripe-${status}`;
-
-  // Hero
-  const hero = document.querySelector('.hero');
-  if (hero) {
-    hero.classList.remove('hero--up', 'hero--degraded', 'hero--down');
-    hero.classList.add(`hero--${status}`);
+  // Banner
+  const banner = document.getElementById('statusBanner');
+  if (banner) {
+    banner.classList.remove('status-banner--up', 'status-banner--degraded', 'status-banner--down');
+    banner.classList.add(`status-banner--${status}`);
   }
-  document.getElementById('overallLabel').innerHTML = headline(overall);
+  document.getElementById('overallLabel').textContent = headline(overall);
   document.getElementById('breakingStatus').textContent = data.summary ? data.summary.summary || data.history[0]?.summary : 'System monitoring active.';
   
   const liveChip = document.querySelector('.live-chip');
@@ -141,7 +137,7 @@ function render(data) {
         card.className = `check-card`;
         card.innerHTML = `
           <div class="check-header">
-            <span class="check-name">${check.name}</span>
+            <span class="check-name" style="font-size:0.85rem">${check.name}</span>
             <div class="status-orb status-orb--${s}">
               ${orbIcons[s] || orbIcons.down}
             </div>
@@ -150,22 +146,12 @@ function render(data) {
             <div class="uptime-bars">${barHtml}</div>
             <div class="uptime-meta">
               <span>60 snapshots ago</span>
-              <span class="uptime-sep"></span>
               <span class="uptime-pct">${checkUptimePct}% uptime</span>
-              <span class="uptime-sep"></span>
               <span>Today</span>
             </div>
           </div>
-          <div class="check-stats">
-            <div class="check-stat">
-              <span class="check-stat-label">Response Time</span>
-              <span class="check-stat-value">${lat !== null ? lat + 'ms' : '—'}</span>
-            </div>
-            ${check.note ? `
-            <div class="check-stat">
-              <span class="check-stat-label">Note</span>
-              <span class="check-stat-value" style="font-family:inherit;font-size:0.7rem">${check.note}</span>
-            </div>` : ''}
+          <div class="check-footer-status" style="font-size:0.75rem;color:var(--ink-4);margin-top:0.25rem">
+            ${s === 'up' ? 'Normal' : s === 'degraded' ? 'Degraded' : 'Disrupted'}
           </div>
         `;
         groupGrid.appendChild(card);

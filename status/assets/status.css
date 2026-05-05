@@ -59,15 +59,10 @@ html {
 
 body {
   font-family: 'Instrument Sans', system-ui, sans-serif;
-  background-color: #f8fafc; /* Slate 50 */
+  background-color: white;
   color: var(--ng-navy);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  /* Subtle grid pattern - NauticGrid style */
-  background-image: 
-    linear-gradient(to right, rgba(203, 213, 225, 0.2) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(203, 213, 225, 0.2) 1px, transparent 1px);
-  background-size: 40px 40px;
 }
 
 /* ── Top stripe ────────────────────────────── */
@@ -109,101 +104,68 @@ body {
   }
 }
 
-/* ── Hero ──────────────────────────────────── */
-.hero {
-  position: relative;
-  background: var(--paper);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 2rem 2.25rem 2.25rem;
-  overflow: hidden;
-  margin-bottom: 0;
-  transition: background 0.3s ease, border-color 0.3s ease;
-}
-
-.hero--up {
-  background: var(--green-bg);
-  border-color: var(--green-rim);
-}
-
-.hero--degraded {
-  background: var(--amber-bg);
-  border-color: var(--amber-rim);
-}
-
-.hero--down {
-  background: var(--red-bg);
-  border-color: var(--red-rim);
-}
-
-/* Decorative concentric circles — top-right */
-.hero::before,
-.hero::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  pointer-events: none;
-}
-
-.hero::before {
-  right: -60px;
-  top: -60px;
-  width: 220px;
-  height: 220px;
-}
-
-.hero::after {
-  right: -20px;
-  top: -20px;
-  width: 120px;
-  height: 120px;
-}
-
-.hero-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-}
-
-.brand-wrap {
+/* ── Banner ────────────────────────────────── */
+.status-banner {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  background: #f6f8fa;
+  color: var(--ng-navy);
   display: flex;
   flex-direction: column;
+  gap: 0.25rem;
 }
 
-.brand {
-  font-family: 'Instrument Sans', sans-serif;
+.status-banner--up {
+  background: #2da44e;
+  color: white;
+}
+
+.status-banner--degraded {
+  background: #cf7304;
+  color: white;
+}
+
+.status-banner--down {
+  background: #cf222e;
+  color: white;
+}
+
+.banner-text {
   font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--ng-navy);
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  margin: 0;
+}
+
+.banner-subtext {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* ── Main Content ────────────────────────── */
+.main-content {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+}
+
+.page-title-row {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--ng-navy);
+}
+
+.page-meta {
+  font-size: 0.8rem;
+  color: var(--ink-4);
+  display: flex;
   gap: 0.5rem;
-}
-
-.brand-logo {
-  width: 24px;
-  height: 24px;
-  color: var(--ng-blue);
-}
-
-.brand-news {
-  color: var(--ng-blue);
-}
-
-.beta-badge {
-  background: var(--ng-beta-bg);
-  color: var(--ng-beta-fg);
-  font-family: 'Instrument Sans', sans-serif;
-  font-size: 0.55rem;
-  font-weight: 700;
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-left: 0.4rem;
 }
 
 .brand-meta {
@@ -504,29 +466,20 @@ body {
 }
 
 .section-head--gh {
-  align-items: center;
-  margin-bottom: 1.25rem;
+  border-bottom: none;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0;
 }
 
-.section-sub-wrap {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.section-sep {
-  width: 3px;
-  height: 3px;
-  background: var(--border-hi);
-  border-radius: 50%;
+.section-title--gh {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--ng-navy);
 }
 
 .section-link {
-  font-family: 'Instrument Sans', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #0969da; /* GitHub blue */
-  text-decoration: none;
+  color: #0969da;
+  font-weight: 500;
 }
 
 .section-link:hover {
@@ -558,21 +511,23 @@ body {
 
 .check-card {
   background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: var(--r-md);
-  padding: 1.25rem;
-  transition: transform 0.2s, box-shadow 0.2s;
-  cursor: default;
+  border: 1px solid #d0d7de;
+  border-radius: 0;
+  padding: 1rem 1.25rem;
+  transition: background-color 0.1s;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  gap: 0.5rem;
+  box-shadow: none;
+  margin-bottom: -1px; /* Overlap borders */
 }
 
 .check-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04);
-  border-color: var(--ng-blue);
+  background-color: #f6f8fa;
+  transform: none;
+  box-shadow: none;
+  border-color: #d0d7de;
+  z-index: 1;
 }
 
 .check-header {
@@ -616,23 +571,31 @@ body {
 
 /* GitHub-style Status Orb */
 .status-orb {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
 }
 
-.status-orb--up { color: var(--green); }
-.status-orb--degraded { color: var(--amber); }
-.status-orb--down { color: var(--red); }
+.status-orb--up { 
+  background: #2da44e; 
+  color: white; 
+}
+.status-orb--degraded { 
+  background: #cf7304; 
+  color: white; 
+}
+.status-orb--down { 
+  background: #cf222e; 
+  color: white; 
+}
 
 .status-orb svg {
-  width: 14px;
-  height: 14px;
-  stroke-width: 3;
+  width: 12px;
+  height: 12px;
+  stroke-width: 4;
 }
 
 /* ── Uptime Bars ───────────────────────────── */
@@ -652,23 +615,25 @@ body {
 .uptime-bar {
   flex: 1;
   height: 100%;
-  background: var(--green-rim);
+  background: #2da44e;
   border-radius: 1px;
-  min-width: 2px;
-  transition: opacity 0.2s;
+  min-width: 1px;
+  transition: opacity 0.1s;
+  opacity: 0.6;
 }
 
 .uptime-bar--up {
-  background: var(--green-rim);
-  opacity: 0.8;
+  background: #2da44e;
 }
 
 .uptime-bar--degraded {
-  background: var(--amber-rim);
+  background: #cf7304;
+  opacity: 1;
 }
 
 .uptime-bar--down {
-  background: var(--red-rim);
+  background: #cf222e;
+  opacity: 1;
 }
 
 .uptime-bar:hover {

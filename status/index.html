@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light" />
-    <title>FrameTheGlobe — Status</title>
+    <title>GitHub Style Status Page</title>
     <meta name="description" content="Live operational status for FrameTheGlobe services, APIs, and background systems." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,75 +12,26 @@
     <link rel="stylesheet" href="./assets/status.css" />
   </head>
   <body>
-    <div id="statusStripe" class="status-stripe"></div>
 
-    <div class="shell">
-
-      <header class="hero">
-        <nav class="hero-nav">
-          <div class="brand-wrap">
-            <span class="brand">
-              <svg class="brand-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M20 12h2"></path><path d="M4 12H2"></path></svg>
-              FrameTheGlobe<span class="brand-news">News</span> <span class="beta-badge">Beta</span>
-            </span>
-            <div class="brand-meta">
-              <span>1,185 Stories</span>
-              <span>•</span>
-              <span>55 Sources</span>
-              <span>•</span>
-              <span>Analyst #20/500</span>
-              <span class="meta-live">Live</span>
-            </div>
-          </div>
-          <span class="live-chip"><i class="live-dot"></i>Operational</span>
-        </nav>
-        <p class="hero-kicker" id="overallKicker">Operational Status</p>
-        <h1 class="hero-headline" id="overallLabel">Checking system…</h1>
-        <div class="hero-foot">
-          <span id="overallBadge" class="status-tag status-tag--muted">—</span>
-          <span class="hero-time" id="lastUpdated">—</span>
-        </div>
-        <div class="breaking-bar">
-          <div class="breaking-label">Status</div>
-          <div class="breaking-text" id="breakingStatus">Loading live system updates...</div>
-        </div>
+      <header class="status-banner" id="statusBanner">
+        <h1 class="banner-text" id="overallLabel">Checking system…</h1>
+        <div class="banner-subtext" id="breakingStatus">Loading live system updates...</div>
       </header>
-
-      <div class="rule" role="separator"></div>
-
-      <section class="metrics-strip" aria-label="Key metrics">
-        <div class="breaking-label" style="margin-right: 1rem;">Live</div>
-        <div class="metric">
-          <span class="metric-l">Services:</span>
-          <strong class="metric-n" id="kpiUp">—</strong>
-        </div>
-        <div class="metric">
-          <span class="metric-l">Latency:</span>
-          <strong class="metric-n" id="kpiLatency">—</strong>
-        </div>
-        <div class="metric">
-          <span class="metric-l">Uptime:</span>
-          <strong class="metric-n" id="kpiUptime">—</strong>
-        </div>
-        <div class="metric">
-          <span class="metric-l">Incidents:</span>
-          <strong class="metric-n" id="kpiIncidents">—</strong>
-        </div>
-      </section>
-
-      <div class="rule" role="separator"></div>
-
-      <section class="section">
-        <div class="section-head section-head--gh">
-          <h2 class="section-title">Current Status</h2>
-          <div class="section-sub-wrap">
-            <span class="section-sub">Uptime over last 60 snapshots</span>
-            <span class="section-sep"></span>
+      
+      <div class="main-content">
+        <div class="page-title-row">
+          <h1 class="page-title">Current Status: FrameTheGlobe News</h1>
+          <div class="page-meta">
+            <span>Uptime over last 60 snapshots.</span>
             <a href="#" class="section-link">View historical uptime</a>
           </div>
         </div>
-        <div id="checksGrid" class="checks-grid"></div>
-      </section>
+        
+        <div class="rule" role="separator"></div>
+
+        <section class="section">
+          <div id="checksGrid" class="checks-grid"></div>
+        </section>
 
       <section class="section">
         <div class="section-head">
