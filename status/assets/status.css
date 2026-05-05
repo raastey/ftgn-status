@@ -57,12 +57,10 @@ html {
 
 body {
   font-family: 'Instrument Sans', system-ui, sans-serif;
-  background-color: var(--cream);
+  background-color: white;
   color: var(--ink-1);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  background-image: radial-gradient(circle, rgba(160, 148, 134, 0.2) 1px, transparent 1px);
-  background-size: 24px 24px;
 }
 
 /* ── Top stripe ────────────────────────────── */
@@ -106,35 +104,55 @@ body {
 
 /* ── Banner ────────────────────────────────── */
 .status-banner {
-  padding: 2.25rem;
+  padding: 1.5rem 2.25rem;
+  background: #f6f8fa;
   border-bottom: 1px solid var(--border);
-  background: white;
   color: var(--ink-1);
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  max-width: 980px;
-  margin: 0 auto;
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  margin-top: 2.5rem;
-  position: relative;
-  overflow: hidden;
+  gap: 0.25rem;
+  transition: all 0.3s ease;
 }
 
-.status-banner--up { border-top: 4px solid var(--green); }
-.status-banner--degraded { border-top: 4px solid var(--amber); }
-.status-banner--down { border-top: 4px solid var(--red); }
+.status-banner--up {
+  background: var(--green);
+  color: white;
+}
 
-.brand-wrap {
+.status-banner--degraded {
+  background: var(--amber);
+  color: white;
+}
+
+.status-banner--down {
+  background: var(--red);
+  color: white;
+}
+
+.banner-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.banner-subtext {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.brand-row {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 1.5rem 2.25rem 0.5rem;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .brand {
   font-family: 'Fraunces', Georgia, serif;
   font-optical-sizing: auto;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--ftg-blue-dk);
   letter-spacing: -0.01em;
@@ -151,27 +169,14 @@ body {
   background: var(--ftg-red);
   color: white;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 800;
   padding: 0.15rem 0.4rem;
   border-radius: 4px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   position: relative;
-  top: -0.2rem;
-}
-
-.banner-text {
-  font-family: 'Fraunces', Georgia, serif;
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin: 0;
-  color: var(--ink-1);
-}
-
-.banner-subtext {
-  font-size: 0.9rem;
-  color: var(--ink-3);
+  top: -0.15rem;
 }
 
 .breaking-bar {
@@ -294,7 +299,7 @@ body {
 }
 
 .hero-headline {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Instrument Sans', sans-serif;
   font-size: clamp(2rem, 4.5vw, 3rem);
   font-weight: 700;
   line-height: 1.1;
@@ -512,10 +517,9 @@ body {
 }
 
 .section-title {
-  font-family: 'Fraunces', Georgia, serif;
-  font-optical-sizing: auto;
+  font-family: 'Instrument Sans', sans-serif;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink-1);
 }
 
@@ -534,10 +538,11 @@ body {
 }
 
 .section-title--gh {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: 'Instrument Sans', sans-serif;
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink-1);
+  letter-spacing: -0.02em;
 }
 
 .section-link {
@@ -583,6 +588,17 @@ body {
   gap: 0.5rem;
   box-shadow: none;
   margin-bottom: -1px; /* Overlap borders */
+}
+
+.check-card:first-child {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.check-card:last-child {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  margin-bottom: 0;
 }
 
 .check-card:hover {
