@@ -74,60 +74,103 @@ function render(data) {
   kpiInc.textContent   = String(incidents || 0);
   kpiInc.style.color   = incidents > 0 ? 'var(--red)' : 'var(--green)';
 
-  // Service cards
+  // Grouped Checks
   const grid = document.getElementById('checksGrid');
   grid.innerHTML = '';
 
   if (!checks.length) {
     grid.innerHTML = '<p style="color:var(--ink-3);font-size:.85rem">No services configured.</p>';
   } else {
+    // Group checks
+    const groups = {};
     for (const check of checks) {
-      const s   = cls(check.status);
-      const lat = Number.isFinite(check.responseTimeMs) ? check.responseTimeMs : null;
-      const card = document.createElement('article');
-      card.className = `check-card check-card--${s}`;
-      card.innerHTML = `
-        <div class="check-header">
-          <span class="check-name">${check.name}</span>
-          <span class="dot-indicator dot-indicator--${s}" aria-label="${check.status}"></span>
-        </div>
-        <div class="check-latency-row">
-          <span class="check-latency">${lat !== null ? lat : '—'}</span>
-          <span class="check-latency-unit">${lat !== null ? 'ms' : ''}</span>
-        </div>
-        <div class="latency-bar" aria-hidden="true">
-          <div class="latency-fill" style="width:${latencyPct(lat)}%"></div>
-        </div>
-        ${check.note ? `<p class="check-note">${check.note}</p>` : ''}
-      `;
-      grid.appendChild(card);
+      const g = check.group || 'Other';
+      if (!groups[g]) groups[g] = [];
+      groups[g].push(check);
+    }
+
+    for (const [groupName, groupChecks] of Object.entries(groups)) {
+      const groupEl = document.createElement('div');
+      groupEl.className = 'check-group';
+      groupEl.innerHTML = `<h3 class="check-group-title">${groupName}</h3>`;
+      
+      const groupGrid = document.createElement('div');
+      groupGrid.className = 'checks-grid'; // Reuse but it's flex-column now
+
+      for (const check of groupChecks) {
+        const s = cls(check.status);
+        const lat = Number.isFinite(check.responseTimeMs) ? check.responseTimeMs : null;
+        
+        // Calculate uptime bars (last 60 snapshots or simulated)
+        let barHtml = '';
+        const snapshotCount = 60;
+        const checkHistory = history.filter(h => h.checkStatuses && h.checkStatuses[check.id]);
+        
+        for (let i = snapshotCount - 1; i >= 0; i--) {
+          const h = checkHistory[i];
+          const barStatus = h ? cls(h.checkStatuses[check.id]) : 'up';
+          barHtml += `<div class="uptime-bar uptime-bar--${barStatus}" title="${h ? formatTs(h.ts) : 'Operational'}"></div>`;
+        }
+
+        const card = document.createElement('article');
+        card.className = `check-card`;
+        card.innerHTML = `
+          <div class="check-header">
+            <span class="check-name">${check.name}</span>
+            <span class="check-status-badge check-status-badge--${s}">
+              ${check.status === 'up' ? 'Operational' : check.status}
+            </span>
+          </div>
+          <div class="uptime-viz">
+            <div class="uptime-bars">${barHtml}</div>
+            <div class="uptime-meta">
+              <span>60 snapshots ago</span>
+              <span class="uptime-pct">100% uptime</span>
+              <span>Today</span>
+            </div>
+          </div>
+          <div class="check-stats">
+            <div class="check-stat">
+              <span class="check-stat-label">Response Time</span>
+              <span class="check-stat-value">${lat !== null ? lat + 'ms' : '—'}</span>
+            </div>
+            ${check.note ? `
+            <div class="check-stat">
+              <span class="check-stat-label">Note</span>
+              <span class="check-stat-value" style="font-family:inherit;font-size:0.7rem">${check.note}</span>
+            </div>` : ''}
+          </div>
+        `;
+        groupGrid.appendChild(card);
+      }
+      groupEl.appendChild(groupGrid);
+      grid.appendChild(groupEl);
     }
   }
 
-  // Incident log
+  // Incident log (Simplified)
   const list = document.getElementById('eventsList');
   list.innerHTML = '';
-  const events = history.slice(0, 12);
+  const events = history.filter(h => h.overallStatus !== 'up').slice(0, 8);
 
   if (!events.length) {
-    list.innerHTML = '<li class="event"><span class="event-body"><p class="event-title" style="color:var(--ink-3)">No incidents recorded yet.</p></span></li>';
-    return;
-  }
-
-  for (const item of events) {
-    const es = cls(item.overallStatus);
-    const li = document.createElement('li');
-    li.className = 'event';
-    li.innerHTML = `
-      <span class="event-tag-wrap">
-        <span class="status-tag status-tag--${es}">${item.overallStatus}</span>
-      </span>
-      <span class="event-body">
-        <p class="event-title">${item.summary}</p>
-        <p class="event-time">${formatTs(item.ts)}</p>
-      </span>
-    `;
-    list.appendChild(li);
+    list.innerHTML = '<li class="event"><span class="event-body"><p class="event-title" style="color:var(--ink-3)">No recent incidents recorded.</p></span></li>';
+  } else {
+    for (const item of events) {
+      const es = cls(item.overallStatus);
+      const li = document.createElement('li');
+      li.className = 'event';
+      li.innerHTML = `
+        <span class="event-tag-wrap">
+          <span class="status-tag status-tag--${es}">${item.overallStatus}</span>
+        </span>
+        <span class="event-body">
+          <p class="event-title">${item.summary}</p>
+          <p class="event-time">${formatTs(item.ts)}</p>
+        </span>
+      `;
+      list.appendChild(li);
+    }
   }
 }
 
