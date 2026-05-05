@@ -4,23 +4,34 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light" />
-    <title>GitHub Style Status Page</title>
+    <title>FrameTheGlobe — Status</title>
     <meta name="description" content="Live operational status for FrameTheGlobe services, APIs, and background systems." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144@400;0,9..144,600;0,9..144,700;1,9..144,400&family=Instrument+Sans:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./assets/status.css" />
   </head>
   <body>
 
       <header class="status-banner" id="statusBanner">
+        <div class="brand-wrap">
+          <span class="brand">FrameTheGlobe<span class="brand-news">News</span> <span class="beta-badge">Beta</span></span>
+          <div class="brand-meta">
+            <span>1,185 Stories</span>
+            <span>•</span>
+            <span>55 Sources</span>
+            <span>•</span>
+            <span>Analyst #20/500</span>
+            <span class="meta-live">Live</span>
+          </div>
+        </div>
         <h1 class="banner-text" id="overallLabel">Checking system…</h1>
         <div class="banner-subtext" id="breakingStatus">Loading live system updates...</div>
       </header>
       
       <div class="main-content">
         <div class="page-title-row">
-          <h1 class="page-title">Current Status: FrameTheGlobe News</h1>
+          <h1 class="page-title">Current Status</h1>
           <div class="page-meta">
             <span>Uptime over last 60 snapshots.</span>
             <a href="#" class="section-link">View historical uptime</a>

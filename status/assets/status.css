@@ -44,12 +44,10 @@
   --r-md: 12px;
   --r-lg: 20px;
 
-  /* NauticGrid Branding */
-  --ng-blue:     #0ea5e9; /* Sky 500 */
-  --ng-blue-dk:  #0c4a6e; /* Sky 900 */
-  --ng-navy:     #0f172a; /* Slate 900 */
-  --ng-beta-bg:  #e0f2fe; /* Sky 100 */
-  --ng-beta-fg:  #0369a1; /* Sky 700 */
+  /* FTG Branding */
+  --ftg-blue:    #1d4ed8;
+  --ftg-blue-dk: #1e3a8a;
+  --ftg-red:     #dc2626;
 }
 
 /* ── Fonts ─────────────────────────────────── */
@@ -59,10 +57,12 @@ html {
 
 body {
   font-family: 'Instrument Sans', system-ui, sans-serif;
-  background-color: white;
-  color: var(--ng-navy);
+  background-color: var(--cream);
+  color: var(--ink-1);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  background-image: radial-gradient(circle, rgba(160, 148, 134, 0.2) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* ── Top stripe ────────────────────────────── */
@@ -106,39 +106,100 @@ body {
 
 /* ── Banner ────────────────────────────────── */
 .status-banner {
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  background: #f6f8fa;
-  color: var(--ng-navy);
+  padding: 2.25rem;
+  border-bottom: 1px solid var(--border);
+  background: white;
+  color: var(--ink-1);
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 1.25rem;
+  max-width: 980px;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  margin-top: 2.5rem;
+  position: relative;
+  overflow: hidden;
 }
 
-.status-banner--up {
-  background: #2da44e;
-  color: white;
+.status-banner--up { border-top: 4px solid var(--green); }
+.status-banner--degraded { border-top: 4px solid var(--amber); }
+.status-banner--down { border-top: 4px solid var(--red); }
+
+.brand-wrap {
+  display: flex;
+  flex-direction: column;
 }
 
-.status-banner--degraded {
-  background: #cf7304;
-  color: white;
+.brand {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ftg-blue-dk);
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
 }
 
-.status-banner--down {
-  background: #cf222e;
+.brand-news {
+  color: var(--ftg-blue);
+}
+
+.beta-badge {
+  background: var(--ftg-red);
   color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  top: -0.2rem;
 }
 
 .banner-text {
-  font-size: 1.25rem;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.8rem;
   font-weight: 600;
   margin: 0;
+  color: var(--ink-1);
 }
 
 .banner-subtext {
-  font-size: 0.85rem;
-  opacity: 0.9;
+  font-size: 0.9rem;
+  color: var(--ink-3);
+}
+
+.breaking-bar {
+  background: var(--ftg-blue);
+  color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.6rem 1rem;
+  margin: 1rem -2.25rem -2.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.breaking-label {
+  background: var(--ftg-blue-dk);
+  padding: 0.6rem 1.25rem;
+  margin: -0.6rem 0 -0.6rem -1rem;
+}
+
+.breaking-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ── Main Content ────────────────────────── */
@@ -156,9 +217,10 @@ body {
 }
 
 .page-title {
+  font-family: 'Fraunces', Georgia, serif;
   font-size: 1.5rem;
-  font-weight: 400;
-  color: var(--ng-navy);
+  font-weight: 600;
+  color: var(--ink-1);
 }
 
 .page-meta {
@@ -232,17 +294,17 @@ body {
 }
 
 .hero-headline {
-  font-family: 'Instrument Sans', sans-serif;
+  font-family: 'Fraunces', Georgia, serif;
   font-size: clamp(2rem, 4.5vw, 3rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.1;
-  letter-spacing: -0.03em;
-  color: var(--ng-navy);
+  letter-spacing: -0.02em;
+  color: var(--ink-1);
   margin-bottom: 1.5rem;
 }
 
 .hero-headline span {
-  color: var(--ng-blue);
+  color: var(--ftg-blue);
 }
 
 .breaking-bar {
@@ -260,7 +322,7 @@ body {
 }
 
 .breaking-label {
-  color: var(--ng-blue);
+  color: white;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -271,8 +333,8 @@ body {
 }
 
 .breaking-label::before {
-  content: 'LIVE';
-  background: var(--ng-blue);
+  content: 'STATUS';
+  background: var(--ftg-blue-dk);
   color: white;
   padding: 0.1rem 0.3rem;
   border-radius: 2px;
@@ -426,7 +488,7 @@ body {
 
 .metric-n {
   font-weight: 700;
-  color: var(--ng-navy);
+  color: var(--ink-1);
 }
 
 .metric-l {
@@ -472,9 +534,10 @@ body {
 }
 
 .section-title--gh {
+  font-family: 'Fraunces', Georgia, serif;
   font-size: 1.5rem;
-  font-weight: 500;
-  color: var(--ng-navy);
+  font-weight: 600;
+  color: var(--ink-1);
 }
 
 .section-link {
@@ -580,15 +643,15 @@ body {
 }
 
 .status-orb--up { 
-  background: #2da44e; 
+  background: var(--green); 
   color: white; 
 }
 .status-orb--degraded { 
-  background: #cf7304; 
+  background: var(--amber); 
   color: white; 
 }
 .status-orb--down { 
-  background: #cf222e; 
+  background: var(--red); 
   color: white; 
 }
 
@@ -615,7 +678,7 @@ body {
 .uptime-bar {
   flex: 1;
   height: 100%;
-  background: #2da44e;
+  background: var(--green-rim);
   border-radius: 1px;
   min-width: 1px;
   transition: opacity 0.1s;
@@ -623,16 +686,16 @@ body {
 }
 
 .uptime-bar--up {
-  background: #2da44e;
+  background: var(--green-rim);
 }
 
 .uptime-bar--degraded {
-  background: #cf7304;
+  background: var(--amber-rim);
   opacity: 1;
 }
 
 .uptime-bar--down {
-  background: #cf222e;
+  background: var(--red-rim);
   opacity: 1;
 }
 
