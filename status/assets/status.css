@@ -43,6 +43,13 @@
   --r-sm: 6px;
   --r-md: 12px;
   --r-lg: 20px;
+
+  /* NauticGrid Branding */
+  --ng-blue:     #0ea5e9; /* Sky 500 */
+  --ng-blue-dk:  #0c4a6e; /* Sky 900 */
+  --ng-navy:     #0f172a; /* Slate 900 */
+  --ng-beta-bg:  #e0f2fe; /* Sky 100 */
+  --ng-beta-fg:  #0369a1; /* Sky 700 */
 }
 
 /* ── Fonts ─────────────────────────────────── */
@@ -52,13 +59,15 @@ html {
 
 body {
   font-family: 'Instrument Sans', system-ui, sans-serif;
-  background-color: var(--cream);
-  color: var(--ink-1);
+  background-color: #f8fafc; /* Slate 50 */
+  color: var(--ng-navy);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  /* Subtle dot grid — adds texture without noise */
-  background-image: radial-gradient(circle, rgba(160, 148, 134, 0.28) 1px, transparent 1px);
-  background-size: 22px 22px;
+  /* Subtle grid pattern - NauticGrid style */
+  background-image: 
+    linear-gradient(to right, rgba(203, 213, 225, 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(203, 213, 225, 0.2) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
 /* ── Top stripe ────────────────────────────── */
@@ -109,6 +118,22 @@ body {
   padding: 2rem 2.25rem 2.25rem;
   overflow: hidden;
   margin-bottom: 0;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.hero--up {
+  background: var(--green-bg);
+  border-color: var(--green-rim);
+}
+
+.hero--degraded {
+  background: var(--amber-bg);
+  border-color: var(--amber-rim);
+}
+
+.hero--down {
+  background: var(--red-bg);
+  border-color: var(--red-rim);
 }
 
 /* Decorative concentric circles — top-right */
@@ -142,13 +167,71 @@ body {
   margin-bottom: 2rem;
 }
 
+.brand-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
 .brand {
-  font-family: 'Fraunces', Georgia, serif;
-  font-optical-sizing: auto;
-  font-size: 0.92rem;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ng-navy);
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-logo {
+  width: 24px;
+  height: 24px;
+  color: var(--ng-blue);
+}
+
+.brand-news {
+  color: var(--ng-blue);
+}
+
+.beta-badge {
+  background: var(--ng-beta-bg);
+  color: var(--ng-beta-fg);
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: 0.4rem;
+}
+
+.brand-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.55rem;
   font-weight: 600;
-  color: var(--ink-2);
-  letter-spacing: 0.01em;
+  color: var(--ink-4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.meta-live {
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.meta-live::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  border-radius: 50%;
 }
 
 .live-chip {
@@ -187,14 +270,50 @@ body {
 }
 
 .hero-headline {
-  font-family: 'Fraunces', Georgia, serif;
-  font-optical-sizing: auto;
-  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--ng-navy);
+  margin-bottom: 1.5rem;
+}
+
+.hero-headline span {
+  color: var(--ng-blue);
+}
+
+.breaking-bar {
+  background: white;
+  color: var(--ng-navy);
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.7rem;
   font-weight: 600;
-  line-height: 1.06;
-  letter-spacing: -0.025em;
-  color: var(--ink-1);
-  margin-bottom: 1.25rem;
+  border-top: 1px solid #e2e8f0;
+  padding: 0.75rem 2.25rem;
+  margin: 2rem -2.25rem -2.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.breaking-label {
+  color: var(--ng-blue);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.breaking-label::before {
+  content: 'LIVE';
+  background: var(--ng-blue);
+  color: white;
+  padding: 0.1rem 0.3rem;
+  border-radius: 2px;
 }
 
 .hero-foot {
@@ -316,20 +435,20 @@ body {
 /* ── Metrics strip ─────────────────────────── */
 .metrics-strip {
   display: flex;
-  align-items: stretch;
-  background: var(--paper);
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  overflow: hidden;
+  align-items: center;
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0.5rem 1.5rem;
+  gap: 2rem;
+  margin: 0 -1.5rem 2rem;
 }
 
 .metric {
-  flex: 1;
-  padding: 1.1rem 1.4rem;
   display: flex;
-  flex-direction: column;
-  gap: 0.32rem;
-  transition: background 0.15s;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
 }
 
 .metric:hover {
@@ -344,21 +463,15 @@ body {
 }
 
 .metric-n {
-  font-family: 'Fraunces', Georgia, serif;
-  font-optical-sizing: auto;
-  font-size: 1.7rem;
-  font-weight: 600;
-  line-height: 1;
-  color: var(--ink-1);
-  font-style: normal;
+  font-weight: 700;
+  color: var(--ng-navy);
 }
 
 .metric-l {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.6rem;
+  color: var(--ink-4);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--ink-3);
+  letter-spacing: 0.05em;
+  font-weight: 500;
 }
 
 /* ── Section ───────────────────────────────── */
@@ -390,11 +503,41 @@ body {
   color: var(--ink-4);
 }
 
+.section-head--gh {
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.section-sub-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-sep {
+  width: 3px;
+  height: 3px;
+  background: var(--border-hi);
+  border-radius: 50%;
+}
+
+.section-link {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #0969da; /* GitHub blue */
+  text-decoration: none;
+}
+
+.section-link:hover {
+  text-decoration: underline;
+}
+
 /* ── Checks grid ───────────────────────────── */
 .checks-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  gap: 1rem;
 }
 
 .check-group {
@@ -407,25 +550,29 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--ink-4);
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
   padding-left: 0.25rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
 }
 
 .check-card {
-  background: var(--paper);
-  border: 1px solid var(--border);
+  background: white;
+  border: 1px solid #e2e8f0;
   border-radius: var(--r-md);
-  padding: 1.25rem 1.5rem;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  padding: 1.25rem;
+  transition: transform 0.2s, box-shadow 0.2s;
   cursor: default;
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .check-card:hover {
-  border-color: var(--border-hi);
-  box-shadow: 0 4px 16px rgba(28, 22, 14, 0.05);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04);
+  border-color: var(--ng-blue);
 }
 
 .check-header {
@@ -467,6 +614,27 @@ body {
   background: var(--red-bg);
 }
 
+/* GitHub-style Status Orb */
+.status-orb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.status-orb--up { color: var(--green); }
+.status-orb--degraded { color: var(--amber); }
+.status-orb--down { color: var(--red); }
+
+.status-orb svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 3;
+}
+
 /* ── Uptime Bars ───────────────────────────── */
 .uptime-viz {
   display: flex;
@@ -476,9 +644,9 @@ body {
 
 .uptime-bars {
   display: flex;
-  gap: 2px;
-  height: 32px;
-  align-items: flex-end;
+  gap: 3px;
+  height: 34px;
+  align-items: stretch;
 }
 
 .uptime-bar {
@@ -505,6 +673,7 @@ body {
 
 .uptime-bar:hover {
   opacity: 1;
+  transform: scaleY(1.1);
 }
 
 .uptime-meta {
@@ -514,12 +683,20 @@ body {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.6rem;
   color: var(--ink-4);
-  padding: 0 2px;
+  padding: 0 1px;
 }
 
 .uptime-pct {
   color: var(--ink-3);
   font-weight: 500;
+}
+
+.uptime-sep {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  margin: 0 0.5rem;
+  opacity: 0.5;
 }
 
 .check-stats {

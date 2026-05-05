@@ -9,9 +9,9 @@ function cls(s) {
 }
 
 function headline(s) {
-  if (s === 'up')       return 'All Systems Operational';
-  if (s === 'degraded') return 'Degraded Performance';
-  return 'Service Disruption';
+  if (s === 'up')       return 'Real-time monitoring for <span>operational systems.</span>';
+  if (s === 'degraded') return 'Partial disruption for <span>active services.</span>';
+  return 'Critical outage in <span>infrastructure.</span>';
 }
 
 function relativeTime(ts) {
@@ -47,7 +47,22 @@ function render(data) {
   if (stripe) stripe.className = `status-stripe stripe-${status}`;
 
   // Hero
-  document.getElementById('overallLabel').textContent = headline(overall);
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    hero.classList.remove('hero--up', 'hero--degraded', 'hero--down');
+    hero.classList.add(`hero--${status}`);
+  }
+  document.getElementById('overallLabel').innerHTML = headline(overall);
+  document.getElementById('breakingStatus').textContent = data.summary ? data.summary.summary || data.history[0]?.summary : 'System monitoring active.';
+  
+  const liveChip = document.querySelector('.live-chip');
+  if (liveChip) {
+    liveChip.innerHTML = `<i class="live-dot"></i>${status === 'up' ? 'Operational' : status === 'degraded' ? 'Degraded' : 'Outage'}`;
+    liveChip.style.color = `var(--${status === 'up' ? 'green' : status === 'degraded' ? 'amber' : 'red'})`;
+    liveChip.style.background = `var(--${status === 'up' ? 'green' : status === 'degraded' ? 'amber' : 'red'}-bg)`;
+    liveChip.style.borderColor = `var(--${status === 'up' ? 'green' : status === 'degraded' ? 'amber' : 'red'}-rim)`;
+  }
+
   const badge = document.getElementById('overallBadge');
   badge.className   = `status-tag status-tag--${status}`;
   badge.textContent = status === 'up' ? 'Operational' : status === 'degraded' ? 'Degraded' : 'Outage';
@@ -112,20 +127,32 @@ function render(data) {
           barHtml += `<div class="uptime-bar uptime-bar--${barStatus}" title="${h ? formatTs(h.ts) : 'Operational'}"></div>`;
         }
 
+        const orbIcons = {
+          up: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17L4 12" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+          degraded: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 8V12M12 16H12.01" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="10"/></svg>`,
+          down: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/></svg>`
+        };
+
+        const checkUptimePct = checkHistory.length
+          ? ((checkHistory.filter(h => h.checkStatuses[check.id] === 'up').length / checkHistory.length) * 100).toFixed(2)
+          : "100.00";
+
         const card = document.createElement('article');
         card.className = `check-card`;
         card.innerHTML = `
           <div class="check-header">
             <span class="check-name">${check.name}</span>
-            <span class="check-status-badge check-status-badge--${s}">
-              ${check.status === 'up' ? 'Operational' : check.status}
-            </span>
+            <div class="status-orb status-orb--${s}">
+              ${orbIcons[s] || orbIcons.down}
+            </div>
           </div>
           <div class="uptime-viz">
             <div class="uptime-bars">${barHtml}</div>
             <div class="uptime-meta">
               <span>60 snapshots ago</span>
-              <span class="uptime-pct">100% uptime</span>
+              <span class="uptime-sep"></span>
+              <span class="uptime-pct">${checkUptimePct}% uptime</span>
+              <span class="uptime-sep"></span>
               <span>Today</span>
             </div>
           </div>
