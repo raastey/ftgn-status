@@ -8,11 +8,36 @@ const PUBLIC_STATUS_URL =
 const checks = [
   // Web surface
   { id: 'frontend-home', group: 'Web', name: 'Main Website', method: 'GET', url: 'https://www.frametheglobe.xyz/', expectedStatuses: [200] },
+  { id: 'frontend-login', group: 'Web', name: 'Login Page', method: 'GET', url: 'https://www.frametheglobe.xyz/login', expectedStatuses: [200] },
+  { id: 'frontend-paywall', group: 'Web', name: 'Paid Access Paywall', method: 'GET', url: 'https://www.frametheglobe.xyz/paid-access-coming', expectedStatuses: [200] },
   { id: 'frontend-war-premium', group: 'Web', name: 'War Premium Page', method: 'GET', url: 'https://www.frametheglobe.xyz/war-premium', expectedStatuses: [200] },
   { id: 'frontend-accountability', group: 'Web', name: 'Accountability Page', method: 'GET', url: 'https://www.frametheglobe.xyz/accountability', expectedStatuses: [200] },
 
+  // Auth and billing
+  { id: 'auth-providers', group: 'Auth & Billing', name: 'Auth Providers', method: 'GET', url: 'https://www.frametheglobe.xyz/api/auth/providers', expectedStatuses: [200] },
+  {
+    id: 'google-oauth-start',
+    group: 'Auth & Billing',
+    name: 'Google OAuth Start',
+    method: 'GET',
+    url: 'https://www.frametheglobe.xyz/api/auth/google-start?callbackUrl=/',
+    expectedStatuses: [302, 303, 307, 308],
+    redirect: 'manual',
+    expectedLocationIncludes: ['accounts.google.com', '/api/auth/signin/google']
+  },
+  {
+    id: 'stripe-webhook-route',
+    group: 'Auth & Billing',
+    name: 'Stripe Webhook Route',
+    method: 'POST',
+    url: 'https://www.frametheglobe.xyz/api/stripe/webhook',
+    expectedStatuses: [400],
+    body: '',
+    successNote: 'Reachable; rejects unsigned probes'
+  },
+
   // Core backend
-  { id: 'backend-health', group: 'Core API', name: 'Backend Health', method: 'GET', url: 'https://framtheglobe-xyz-original-production.up.railway.app/health', expectedStatuses: [200] },
+  { id: 'backend-health', group: 'Core API', name: 'Backend Health', method: 'GET', url: 'https://www.frametheglobe.xyz/health', expectedStatuses: [200] },
   { id: 'api-news', group: 'Core API', name: 'News API', method: 'GET', url: 'https://www.frametheglobe.xyz/api/news?limit=1', expectedStatuses: [200] },
   { id: 'api-market', group: 'Core API', name: 'Market API', method: 'GET', url: 'https://www.frametheglobe.xyz/api/market', expectedStatuses: [200] },
   { id: 'api-rss', group: 'Core API', name: 'RSS API', method: 'GET', url: 'https://www.frametheglobe.xyz/api/rss', expectedStatuses: [200] },
@@ -26,7 +51,7 @@ const checks = [
   { id: 'api-flight-paths', group: 'Analytics', name: 'Flight Paths API', method: 'GET', url: 'https://www.frametheglobe.xyz/api/flight-paths', expectedStatuses: [200] },
 
   // AI platform (non-token-burning liveness checks)
-  { id: 'ai-router-status', group: 'AI Platform', name: 'AI Router Status', method: 'GET', url: 'https://framtheglobe-xyz-original-production.up.railway.app/api/ai-router-status', expectedStatuses: [200] },
+  { id: 'ai-router-status', group: 'AI Platform', name: 'AI Router Status', method: 'GET', url: 'https://www.frametheglobe.xyz/api/ai-router-status', expectedStatuses: [200] },
   { id: 'ai-intel-route', group: 'AI Platform', name: 'AI Intel Route', method: 'GET', url: 'https://www.frametheglobe.xyz/api/ai-intel', expectedStatuses: [405] },
   { id: 'ai-flash-brief-route', group: 'AI Platform', name: 'Flash Brief Route', method: 'GET', url: 'https://www.frametheglobe.xyz/api/flash-brief', expectedStatuses: [405] },
   { id: 'ai-analyst-route', group: 'AI Platform', name: 'Analyst Briefing Route', method: 'GET', url: 'https://www.frametheglobe.xyz/api/analyst-briefing', expectedStatuses: [200, 404, 405] },
@@ -35,11 +60,17 @@ const checks = [
 
 const timeoutMs = 20000;
 
-function classify({ isExpectedStatus, status, elapsed }) {
+function classify({ isExpectedStatus, status, elapsed, location }, check) {
   if (!isExpectedStatus) return { status: 'down', note: `Unexpected HTTP ${status}` };
+  if (
+    Array.isArray(check.expectedLocationIncludes) &&
+    !check.expectedLocationIncludes.some((fragment) => String(location ?? '').includes(fragment))
+  ) {
+    return { status: 'down', note: `Unexpected redirect target (${location || 'missing location'})` };
+  }
   if (elapsed > 5000) return { status: 'degraded', note: `Slow response (${elapsed}ms)` };
   if (elapsed > 2500) return { status: 'degraded', note: `Elevated latency (${elapsed}ms)` };
-  return { status: 'up', note: 'Operational' };
+  return { status: 'up', note: check.successNote || 'Operational' };
 }
 
 async function safeFetch(check) {
@@ -50,10 +81,12 @@ async function safeFetch(check) {
     const res = await fetch(check.url, {
       method: check.method ?? 'GET',
       signal: controller.signal,
+      redirect: check.redirect || 'follow',
+      body: check.body,
       headers: { 'user-agent': 'frametheglobe-status-check/1.0' }
     });
     const elapsed = Date.now() - start;
-    return { httpStatus: res.status, elapsed };
+    return { httpStatus: res.status, elapsed, location: res.headers.get('location') };
   } catch (err) {
     const elapsed = Date.now() - start;
     return { httpStatus: 0, elapsed, error: String(err) };
@@ -99,8 +132,9 @@ async function run() {
     const quality = classify({
       isExpectedStatus: expectedStatuses.includes(result.httpStatus),
       status: result.httpStatus,
-      elapsed: result.elapsed
-    });
+      elapsed: result.elapsed,
+      location: result.location
+    }, check);
     rows.push({
       id: check.id,
       group: check.group,
