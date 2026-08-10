@@ -39,18 +39,23 @@ jobs:
         env:
           PUBLIC_STATUS_URL: https://raastey.github.io/ftgn-status/data/status.json
 
-      # Commits the refreshed snapshot back to the repo so GitHub sees real
-      # activity every run. Without this, the repo goes 60 days with no
-      # commits (this job only ever uploads a Pages artifact) and GitHub
-      # auto-disables the cron schedule (`disabled_inactivity`), which
-      # silently stopped this page updating for three weeks before.
-      - name: Commit refreshed snapshot
+      # Commits a tiny heartbeat file so GitHub sees real repo activity every
+      # run. Without this, the repo goes 60 days with no commits (this job
+      # only ever uploads a Pages artifact) and GitHub auto-disables the cron
+      # schedule (`disabled_inactivity`), which silently stopped this page
+      # updating for three weeks before. Deliberately NOT status.json itself:
+      # it's ~3MB and rewritten (mostly-changed, since history is prepended)
+      # on every run, which would bloat the repo's git history badly over
+      # months for no benefit — status.json only needs to reach the Pages
+      # artifact, not live in git history.
+      - name: Commit heartbeat
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add status/data/status.json
+          date -u +"%Y-%m-%dT%H:%M:%SZ" > status/data/.last-run
+          git add status/data/.last-run
           git diff --cached --quiet && exit 0
-          git commit -m "chore: refresh status snapshot [skip ci]"
+          git commit -m "chore: heartbeat [skip ci]"
           git push
 
       - name: Configure Pages
